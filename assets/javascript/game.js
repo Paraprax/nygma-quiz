@@ -16,6 +16,9 @@ var wrongAnswers = [];
 // keeps track of the unguessed letters remaining in the secret word, to be set by function later: 
 var lettersLeft = 0;
 
+// how many wrong letters the player is allowed to guess:
+var strikes = 0;
+
 // ------------------------------------------------------------------------------------------------------------------------
 
 //function definitions = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -47,46 +50,51 @@ function printWrongos() {
 
 //reset everything for a new game:
 function newRoundReset() {
+    console.log(`NEW ROUND:`);
     marqueeBuilder(secretWord);
     lettersLeft = secretWord.length;
+    strikes = 6;
     wrongAnswers = [];
     printMarquee();
-    //printWrongos();
-
-    //console logs for posterity:
-    console.log(marquee);
-    console.log(`${lettersLeft} letters left to guess`);
+    printWrongos();
 };
 
 //main game logic:
 function hangman() {
-    var strikes = 6;
-    console.log(secretWord);
 
-    //allow guesses until strikes run out:
-    while (strikes > 0) {
-        //program asks for player input:
-        var guess = prompt("Enter a letter");
+    //reset everything:
+    newRoundReset();
 
-        //compare player's guess with each letter in the secret word:
-        if (secretWord.indexOf(guess) == -1) {
-            strikes--;
-            alert(`Wrong! ${strikes} strikes left!`);
-        } else {
-            alert(`Right!`);
-            document.write(guess);
-        }
-    }
-    //loss message fires if while-condition is exhausted:
-    alert(`You lose!`);
+    //console logs for posterity:
+    console.log(`secret word: ${secretWord}`);
+    console.log(`initial marquee: ${marquee}`);
+    console.log(`${lettersLeft} letters left to guess`);
+    console.log(`${strikes} strikes remaining`);
+
+    //allow guesses until strikes run out || whole secretWord is guessed:
+    // while (strikes > 0 || lettersLeft > 0) {
+    //     //program asks for player input:
+    //     var guess = prompt("Enter a letter");
+
+    //     //compare player's guess with each letter in the secret word:
+    //     if (secretWord.indexOf(guess) == -1) {
+    //         strikes--;
+    //         alert(`Wrong! ${strikes} strikes left!`);
+    //     } else {
+    //         alert(`Right!`);
+    //         lettersLeft--;
+    //         document.write(guess);
+    //     }
+    // }
+    // //loss message fires if while-condition is exhausted:
+    // alert(`You lose!`);
 }
 
 //function can run whole program on command without refreshing the page:
 function playGame() {
     wordGenerator();
     console.log(secretWord);
-    newRoundReset();
-    //hangman();
+    hangman();
 }
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
