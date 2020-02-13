@@ -28,6 +28,8 @@
             var marquee = [];
             // array to keep track of each wrong letter guessed in a round:
             var wrongAnswers = [];
+            // keeps track of the unguessed letters remaining in the secret word, to be set by function later: 
+            var lettersLeft = 0;
             
             //function to choose a word from the bank at random and set it as the secret word:
             function wordGenerator() {
@@ -45,13 +47,16 @@
             //function to reset everything for a new game:
             function newRound() {
                 marqueeBuilder(secretWord);
+                lettersLeft = secretWord.length;
+
+                //console logs for posterity:
                 console.log(marquee);
+                console.log(`${lettersLeft} letters left to guess`);
             };
 
             //main game logic:
             function hangman() {
                 var strikes = 6;
-                var blanks = "";
                 console.log(secretWord);
                 
                 //allow guesses until strikes run out:
