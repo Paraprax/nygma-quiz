@@ -72,22 +72,20 @@ function hangman() {
     console.log(`${strikes} strikes remaining`);
 
     //allow guesses until strikes run out || whole secretWord is guessed:
-    // while (strikes > 0 || lettersLeft > 0) {
-    //     //program asks for player input:
-    //     var guess = prompt("Enter a letter");
+    document.onkeyup = function(event) {
+        //program asks for player input:
+         var guess = String.fromCharCode(event.keyCode).toLowerCase();//<- TODO replace this prompt with logic to get keystrokes from the user
 
-    //     //compare player's guess with each letter in the secret word:
-    //     if (secretWord.indexOf(guess) == -1) {
-    //         strikes--;
-    //         alert(`Wrong! ${strikes} strikes left!`);
-    //     } else {
-    //         alert(`Right!`);
-    //         lettersLeft--;
-    //         document.write(guess);
-    //     }
-    // }
-    // //loss message fires if while-condition is exhausted:
-    // alert(`You lose!`);
+        //compare player's guess with each letter in the secret word:
+        if (secretWord.indexOf(guess) == -1) {
+            strikes--;
+            console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this alert with logic to update the DOM && score data
+        } else {
+            lettersLeft--;
+            console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this alert with logic to update the DOM && score data
+            //document.write(guess);
+        }
+    }
 }
 
 //function can run whole program on command without refreshing the page:
