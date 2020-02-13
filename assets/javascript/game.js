@@ -31,6 +31,7 @@ function wordGenerator() {
 
 //generate the initially-blank marquee:
 function marqueeBuilder(word) {
+    marquee = [];
     for (var i = 0; i < word.length; i++) {
         marquee[i] = "_";
     }
