@@ -50,6 +50,7 @@ function printWrongos() {
 
 //reset everything for a new game:
 function newRoundReset() {
+    wordGenerator();
     console.log(`NEW ROUND:`);
     marqueeBuilder(secretWord);
     lettersLeft = secretWord.length;
@@ -57,44 +58,43 @@ function newRoundReset() {
     wrongAnswers = [];
     printMarquee();
     printWrongos();
-};
-
-//main game logic:
-function hangman() {
-
-    //reset everything:
-    newRoundReset();
 
     //console logs for posterity:
     console.log(`secret word: ${secretWord}`);
     console.log(`initial marquee: ${marquee}`);
     console.log(`${lettersLeft} letters left to guess`);
     console.log(`${strikes} strikes remaining`);
+};
+
+//main game logic:
+function playGame() {
+
+    //reset everything:
+    newRoundReset();
 
     //allow guesses until strikes run out || whole secretWord is guessed:
     document.onkeyup = function(event) {
-        //program asks for player input:
-         var guess = String.fromCharCode(event.keyCode).toLowerCase();//<- TODO replace this prompt with logic to get keystrokes from the user
+        //program asks for player key input:
+         var guess = String.fromCharCode(event.keyCode).toLowerCase();
 
         //compare player's guess with each letter in the secret word:
         if (secretWord.indexOf(guess) == -1) {
             strikes--;
-            console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this alert with logic to update the DOM && score data
+            console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this console log with logic to update the DOM && score data
         } else {
             lettersLeft--;
-            console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this alert with logic to update the DOM && score data
+            console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this console log with logic to update the DOM && score data
             //document.write(guess);
         }
     }
 }
 
-//function can run whole program on command without refreshing the page:
-function playGame() {
-    wordGenerator();
-    console.log(secretWord);
-    hangman();
-}
-
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-playGame();
+//functions can run whole program on command without refreshing the page:
+document.getElementById("play").addEventListener('click', function() {
+    playGame();
+});
+document.getElementById("reset").addEventListener('click', function() {
+    newRoundReset();
+});
