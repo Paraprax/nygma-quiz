@@ -21,13 +21,25 @@
 
         <script>
             var wordBank = ["riddle","bruce","enigma","fortune","brainwaves","bobblehead","laundromat","mystery","curtains","vowels","cryptic","circus","xylophone","shareholder","battleship","bonus","query","box","profit","zeppelin"];
-
-            function hangman() {
-                //function chooses a word from the bank at random:
+            var secretWord = "";
+            
+            //function chooses a word from the bank at random:
+            function wordGenerator() {
                 var wordIndex = Math.floor(Math.random() * 20);
-                var secretWord = wordBank[wordIndex];
+                secretWord = wordBank[wordIndex];
+            }
+
+            //main game logic:
+            function hangman() {
                 var strikes = 6;
+                var blanks = "";
                 console.log(secretWord);
+
+                //create and print a series of underscores showing how many letters the secretWord has:
+                // for (var i = 0; i < secretWord.length; i++) {
+                //     blanks = ;
+                // }
+                document.write(blanks);
                 
                 //allow guesses until strikes run out:
                 while (strikes > 0) {
@@ -46,7 +58,14 @@
                 alert(`You lose!`);
             }
 
-            hangman();
+            //function can run whole program on command without refreshing the page:
+            function playGame() {
+                wordGenerator();
+                console.log(secretWord);
+                //hangman();
+            }
+
+            playGame();
         
         </script>
     </body>
