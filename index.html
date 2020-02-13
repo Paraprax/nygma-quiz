@@ -21,15 +21,29 @@
 
         <script>
             var wordBank = ["riddle","bruce","enigma","fortune","brainwaves","bobblehead","laundromat","mystery","curtains","vowels","cryptic","circus","xylophone","shareholder","battleship","bonus","query","box","profit","zeppelin"];
-            
+
             function hangman() {
+                //function chooses a word from the bank at random:
                 var wordIndex = Math.floor(Math.random() * 20);
                 var secretWord = wordBank[wordIndex];
-
+                var strikes = 6;
                 console.log(secretWord);
+                
+                //allow guesses until strikes run out:
+                while (strikes > 0) {
+                    //program asks for player input:
+                    var guess = prompt("Enter a letter");
 
-                //var guess = prompt("Enter a letter");
-                //if (guess ==)
+                    //compare player's guess with each letter in the secret word:
+                    if (secretWord.indexOf(guess) == -1) {
+                        strikes--;
+                        alert(`Wrong! ${strikes} strikes left!`);
+                    } else {
+                        alert(`Right!`);
+                        document.write(guess);
+                    }
+                }
+                alert(`You lose!`);
             }
 
             hangman();
