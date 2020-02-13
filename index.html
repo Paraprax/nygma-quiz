@@ -20,26 +20,39 @@
         <h1>Press Any Key To Get Started</h1>
 
         <script>
+            // array of potential secret words to be guessed in the game:
             var wordBank = ["riddle","bruce","enigma","fortune","brainwaves","bobblehead","laundromat","mystery","curtains","vowels","cryptic","circus","xylophone","shareholder","battleship","bonus","query","box","profit","zeppelin"];
+            // current secret word, to be set by function later:
             var secretWord = "";
+            // marquee of blank spaces indicating the number of letters in the secret word, to be set by function later:
+            var marquee = [];
+            // array to keep track of each wrong letter guessed in a round:
+            var wrongAnswers = [];
             
-            //function chooses a word from the bank at random:
+            //function to choose a word from the bank at random and set it as the secret word:
             function wordGenerator() {
                 var wordIndex = Math.floor(Math.random() * 20);
                 secretWord = wordBank[wordIndex];
             }
+
+            //function to generate the marquee:
+            function marqueeBuilder(word) {
+                for (var i = 0; i < word.length; i++) {
+                    marquee[i] = "_";
+                }
+            }
+ 
+            //function to reset everything for a new game:
+            function newRound() {
+                marqueeBuilder(secretWord);
+                console.log(marquee);
+            };
 
             //main game logic:
             function hangman() {
                 var strikes = 6;
                 var blanks = "";
                 console.log(secretWord);
-
-                //create and print a series of underscores showing how many letters the secretWord has:
-                // for (var i = 0; i < secretWord.length; i++) {
-                //     blanks = ;
-                // }
-                document.write(blanks);
                 
                 //allow guesses until strikes run out:
                 while (strikes > 0) {
@@ -62,6 +75,7 @@
             function playGame() {
                 wordGenerator();
                 console.log(secretWord);
+                newRound();
                 //hangman();
             }
 
