@@ -80,20 +80,29 @@ function playGame() {
         //program asks for player key input:
          var guess = String.fromCharCode(event.keyCode).toLowerCase();
         
-        //compare player's guess with each letter in the secret word:
-        if (secretWord.indexOf(guess) == -1) {
-            //WRONG ANSWER actions:
-            strikes--;
-            console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this console log with logic to update the DOM && score data
-        } else {
-            //RIGHT ANSWER actions:
-            console.log('number:' + secretWord.indexOf(guess));
-            marquee[secretWord.indexOf(guess)] = guess;
-            printMarquee();
-            lettersLeft--;
-            console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this console log with logic to update the DOM && score data
-            //document.write(guess);
+        //nested for loops to check letter against each letter in the secret word(even after instances of the letter are found):
+        for (var i = 0; i < secretWord.length; i++) {
+            if (guess == secretWord[i] && marquee[i] == "_") {
+                marquee[i] = guess; //update the marquee with the letter replacing the appropriate blank space
+                printMarquee(); //reprint the marquee, now with the found letters filled in
+            }
         }
+        
+        //scrapping all this for now:
+        //compare player's guess with each letter in the secret word:
+        // if (secretWord.indexOf(guess) == -1) {
+        //     //WRONG ANSWER actions:
+        //     strikes--;
+        //     console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this console log with logic to update the DOM && score data
+        // } else {
+        //     //RIGHT ANSWER actions:
+        //     console.log('number:' + secretWord.indexOf(guess));
+        //     marquee[secretWord.indexOf(guess)] = guess;
+        //     printMarquee();
+        //     lettersLeft--;
+        //     console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this console log with logic to update the DOM && score data
+        //     //document.write(guess);
+        // }
     }
 }
 
