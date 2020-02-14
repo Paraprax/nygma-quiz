@@ -73,16 +73,23 @@ function playGame() {
     //reset everything:
     newRoundReset();
 
-    //allow guesses until strikes run out || whole secretWord is guessed:
+    //TODO: allow guesses until strikes run out || whole secretWord is guessed:
+
+    //run main game logic with every keypress:
     document.onkeyup = function(event) {
         //program asks for player key input:
          var guess = String.fromCharCode(event.keyCode).toLowerCase();
-
+        
         //compare player's guess with each letter in the secret word:
         if (secretWord.indexOf(guess) == -1) {
+            //WRONG ANSWER actions:
             strikes--;
             console.log(`Wrong! ${strikes} strikes left!`); //<- TODO replace this console log with logic to update the DOM && score data
         } else {
+            //RIGHT ANSWER actions:
+            console.log('number:' + secretWord.indexOf(guess));
+            marquee[secretWord.indexOf(guess)] = guess;
+            printMarquee();
             lettersLeft--;
             console.log(`Right! ${lettersLeft} secret letters left!`); //<- TODO replace this console log with logic to update the DOM && score data
             //document.write(guess);
