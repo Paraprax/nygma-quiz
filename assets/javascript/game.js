@@ -99,16 +99,15 @@ function playGame() {
                 console.log('foundletter inside loop:' + foundLetter);
                 console.log("letters left: " + lettersLeft);
             } else if (guess == secretWord[i]) {
+                foundLetter = true;
                 console.log("letter already found!")
                 //<- TODO add to update the DOM && score data
-            } else {
-                console.log('zip');
             }
         }
 
         console.log('foundletter after loop:' + foundLetter)
 
-        //check the boolean after every letter has been evaluated; if no letter was found, execute penalty logic:
+        //check the boolean after every letter in the word has been evaluated; if no letter was found, execute penalty logic:
         if (foundLetter === false) {
             console.log("no letter found");
             strikes--;
