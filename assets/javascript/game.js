@@ -83,8 +83,8 @@ function playGame() {
     //every time a key is pressed:
     document.onkeyup = function(event) {
 
-        //game actions will only work if the player hasn't found all the letters || used up their strikes:
-        if (strikes > 0) {
+        //game actions will only work if the player hasn't found all the letters or used up their strikes:
+        if (strikes > 0 && lettersLeft > 0) {
 
             //the key's letter is saved in the 'guess' var:
             var guess = String.fromCharCode(event.keyCode).toLowerCase();
