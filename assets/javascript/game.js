@@ -73,6 +73,8 @@ function newRoundReset() {
 //main game logic:
 function playGame() {
 
+    console.log(wrongAnswers);
+
     //reset everything:
     newRoundReset();
 
@@ -80,39 +82,48 @@ function playGame() {
 
     //every time a key is pressed:
     document.onkeyup = function(event) {
-        //the key's letter is saved in the 'guess' var:
-        var guess = String.fromCharCode(event.keyCode).toLowerCase();
-        
-         //re-declare this as false before evaluating each guess
-         foundLetter = false;
-         console.log('foundletter before loop:' + foundLetter);
-        
-        //then, for every letter in the secret word:
-        for (var i = 0; i < secretWord.length; i++) {
-            /*if the guess is the same letter as the one being checked in the word, 
-            && the marquee space in that position hasn't already been filled by a duplicate letter:*/
-            if (guess == secretWord[i] && marquee[i] == "_") {
-                marquee[i] = guess; //update the marquee with the letter replacing the appropriate blank space
-                printMarquee(); //reprint the marquee in the DOM, now with the found letters filled in
-                lettersLeft--;
-                foundLetter = true;
-                console.log('foundletter inside loop:' + foundLetter);
-                console.log("letters left: " + lettersLeft);
-            } else if (guess == secretWord[i]) {
-                foundLetter = true;
-                console.log("letter already found!")
+
+        //game actions will only work if the player hasn't found all the letters || used up their strikes:
+        if (strikes > 0) {
+
+            //the key's letter is saved in the 'guess' var:
+            var guess = String.fromCharCode(event.keyCode).toLowerCase();
+
+            console.log('2 ' + wrongAnswers);
+            
+            //re-declare this as false before evaluating each guess
+            foundLetter = false;
+            console.log('boolean before loop:' + foundLetter);
+            
+            //then, for every letter in the secret word:
+            for (var i = 0; i < secretWord.length; i++) {
+                /*if the guess is the same letter as the one being checked in the word, 
+                && the marquee space in that position hasn't already been filled by a duplicate letter:*/
+                if (guess == secretWord[i] && marquee[i] == "_") {
+                    marquee[i] = guess; //update the marquee with the letter replacing the appropriate blank space
+                    printMarquee(); //reprint the marquee in the DOM, now with the found letters filled in
+                    lettersLeft--;
+                    foundLetter = true;
+                    console.log('foundletter inside loop:' + foundLetter);
+                    console.log("letters left: " + lettersLeft);
+                } else if (guess == secretWord[i]) {
+                    foundLetter = true;
+                    console.log("letter already found!")
+                }
             }
-        }
 
-        console.log('foundletter after loop:' + foundLetter)
+            console.log('boolean after loop:' + foundLetter)
 
-        //check the boolean after every letter in the word has been evaluated; if no letter was found, execute penalty logic:
-        if (foundLetter === false) {
-            console.log("no letter found");
-            wrongAnswers.push(guess + ' '); //add the guessed letter to the wrongAnswers array
-            printWrongos();
-            strikes--;
-            console.log(`Wrong! ${strikes} strikes left!`); ////<- TODO add to update the DOM && score data
+            //check the boolean after every letter in the word has been evaluated; if no letter was found, execute penalty logic:
+            if (foundLetter === false) {
+                console.log(wrongAnswers);
+                console.log('index of guess = ' + wrongAnswers.indexOf("p"));
+                console.log("no letter found");
+                wrongAnswers.push(guess + ' '); //add the guessed letter to the wrongAnswers array
+                printWrongos(); //reprint updated array in the DOM
+                strikes--; 
+                console.log(`Wrong! ${strikes} strikes left!`); ////<- TODO add to update the DOM && score data
+            }
         }
     }
 }
