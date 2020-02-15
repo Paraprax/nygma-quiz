@@ -101,7 +101,6 @@ function playGame() {
             } else if (guess == secretWord[i]) {
                 foundLetter = true;
                 console.log("letter already found!")
-                //<- TODO add to update the DOM && score data
             }
         }
 
@@ -110,8 +109,10 @@ function playGame() {
         //check the boolean after every letter in the word has been evaluated; if no letter was found, execute penalty logic:
         if (foundLetter === false) {
             console.log("no letter found");
+            wrongAnswers.push(guess + ' '); //add the guessed letter to the wrongAnswers array
+            printWrongos();
             strikes--;
-            console.log(`Wrong! ${strikes} strikes left!`); //
+            console.log(`Wrong! ${strikes} strikes left!`); ////<- TODO add to update the DOM && score data
         }
     }
 }
