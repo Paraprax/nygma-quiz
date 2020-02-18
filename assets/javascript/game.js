@@ -22,6 +22,9 @@ var strikes = 0;
 // finding a letter will switch this to 'true' for the duration of that turn:
 var foundLetter = false;
 
+//state determines win or loss message at end of game:
+var gameWon = false;
+
 // ------------------------------------------------------------------------------------------------------------------------
 
 //function definitions = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -60,6 +63,7 @@ function newRoundReset() {
     lettersLeft = secretWord.length;
     strikes = 6;
     wrongAnswers = [];
+    gameWon = false;
     printMarquee();
     printWrongos();
 
@@ -70,6 +74,15 @@ function newRoundReset() {
     console.log(`${strikes} strikes remaining`);
 };
 
+function resultsMessage(won) {
+    if (won === true) {
+        alert('You Win!');
+    }
+    else {
+        alert('You lose!');
+    }
+}
+
 //main game logic:
 function playGame() {
 
@@ -77,8 +90,6 @@ function playGame() {
 
     //reset everything:
     newRoundReset();
-
-    //TODO: allow guesses until strikes run out || whole secretWord is guessed:
 
     //every time a key is pressed:
     document.onkeyup = function(event) {
@@ -125,8 +136,23 @@ function playGame() {
                 console.log(`Wrong! ${strikes} strikes left!`); ////<- TODO add to update the DOM && score data
             }
         }
+
+        if (strikes == 0) {
+            resultsMessage(gameWon);
+        }
+
+        if (lettersLeft == 0) {
+            printMarquee()
+            gameWon = true;
+            resultsMessage(gameWon);
+        }
     }
 }
+
+//Next-up:
+//TODO: add WIN and LOSS messages that appear on-screen!
+//Future:
+//TODO: add more responsiveness and functionality with jQuery
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
