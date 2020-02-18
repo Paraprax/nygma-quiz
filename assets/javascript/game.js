@@ -23,7 +23,7 @@ var strikes = 0;
 var foundLetter = false;
 
 //state determines win or loss message at end of game:
-var gameWon = false;
+var gameResult = false;
 
 // ------------------------------------------------------------------------------------------------------------------------
 
@@ -63,7 +63,7 @@ function newRoundReset() {
     lettersLeft = secretWord.length;
     strikes = 6;
     wrongAnswers = [];
-    gameWon = false;
+    gameResult = false;
     printMarquee();
     printWrongos();
 
@@ -81,6 +81,8 @@ function resultsMessage(won) {
     else {
         alert('You lose!');
     }
+
+    newRoundReset();
 }
 
 //main game logic:
@@ -137,15 +139,16 @@ function playGame() {
             }
         }
 
+        setTimeout( function () {
         if (strikes == 0) {
-            resultsMessage(gameWon);
+            resultsMessage(gameResult);
         }
 
         if (lettersLeft == 0) {
             printMarquee()
-            gameWon = true;
-            resultsMessage(gameWon);
-        }
+            gameResult = true;
+            resultsMessage(gameResult);
+        }}, 1000);
     }
 }
 
